@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relVendas" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="095d9a31-b2d7-4e6a-ab38-6abc33313473">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="conexao" class="java.sql.Connection">
+		<defaultValueExpression><![CDATA[getConnection("jdbc:mysql://localhost/bdvendas","root","")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT i.id, i.venda_id, p.descricao,p.preco, i.qtd, i.subtotal FROM tb_itensvendas AS i inner join tb_produtos as p on(i.produto_id=p.id) WHERE venda_id = (SELECT MAX(id) FROM tb_vendas)]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="venda_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preco" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtd" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="56" height="20" uuid="0af4287e-2d85-4d21-a1de-df51216c1ebf"/>
+				<textFieldExpression><![CDATA[$F{id}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="0" width="53" height="20" uuid="88ed78ff-8b9e-4f02-9410-7d763b77f06f"/>
+				<textFieldExpression><![CDATA[$F{venda_id}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="0" width="68" height="20" uuid="1f8dbabf-f4f3-49a2-b859-b6e00c1d79b7"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="0" width="68" height="20" uuid="79391dde-81f0-4867-b02d-95f41377bb7d"/>
+				<textFieldExpression><![CDATA[$F{qtd}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="0" width="100" height="20" uuid="5d77a0ad-5c7e-4649-b62c-b1f84f09df76"/>
+				<textFieldExpression><![CDATA[$F{subtotal}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="20" uuid="1b269aee-f3fd-4138-a15f-bcbc1df8f47b"/>
+				<textFieldExpression><![CDATA[$F{preco}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="407" y="8" width="80" height="20" uuid="cc0bdc76-5c38-4c7f-b61b-19541e0c1a75"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="487" y="8" width="40" height="20" uuid="08dc1b3e-1e91-4f3c-81ce-42ea885f6330"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>
